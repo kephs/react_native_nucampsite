@@ -37,19 +37,10 @@ const AboutScreen = () => {
 
                 {partners.map((partner) => (
                     <ListItem key={partner.id}>
-                        <Avatar
-                            rounded
-                            source={partner.image}
-                        />
-
+                        <Avatar source={partner.image} />
                         <ListItem.Content>
-                            <ListItem.Title>
-                                {partner.name}
-                            </ListItem.Title>
-
-                            <ListItem.Subtitle>
-                                {partner.description}
-                            </ListItem.Subtitle>
+                            <ListItem.Title>{partner.name}</ListItem.Title>
+                            <ListItem.Subtitle>{partner.description}</ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>
                 ))}

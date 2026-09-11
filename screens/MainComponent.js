@@ -1,7 +1,8 @@
-import { Platform, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import Constants from 'expo-constants';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { FontAwesome } from '@expo/vector-icons';
 
 import HomeScreen from './HomeScreen';
 import DirectoryScreen from './DirectoryScreen';
@@ -24,7 +25,16 @@ const HomeNavigator = () => {
             <Stack.Screen
                 name='Home'
                 component={HomeScreen}
-                options={{ title: 'Home' }}
+                options={({ navigation }) => ({
+                    title: 'Home',
+                    headerLeft: () => (
+                        <FontAwesome
+                            name='home'
+                            style={styles.stackIcon}
+                            onPress={() => navigation.toggleDrawer()}
+                        />
+                    )
+                })}
             />
         </Stack.Navigator>
     );
@@ -41,7 +51,16 @@ const DirectoryNavigator = () => {
             <Stack.Screen
                 name='Directory'
                 component={DirectoryScreen}
-                options={{ title: 'Campsite Directory' }}
+                options={({ navigation }) => ({
+                    title: 'Campsite Directory',
+                    headerLeft: () => (
+                        <FontAwesome
+                            name='list'
+                            style={styles.stackIcon}
+                            onPress={() => navigation.toggleDrawer()}
+                        />
+                    )
+                })}
             />
 
             <Stack.Screen
@@ -63,6 +82,15 @@ const AboutNavigator = () => {
             <Stack.Screen
                 name='About'
                 component={AboutScreen}
+                options={({ navigation }) => ({
+                    headerLeft: () => (
+                        <FontAwesome
+                            name='info-circle'
+                            style={styles.stackIcon}
+                            onPress={() => navigation.toggleDrawer()}
+                        />
+                    )
+                })}
             />
         </Stack.Navigator>
     );
@@ -76,7 +104,16 @@ const ContactNavigator = () => {
             <Stack.Screen
                 name='Contact'
                 component={ContactScreen}
-                options={{ title: 'Contact Us' }}
+                options={({ navigation }) => ({
+                    title: 'Contact Us',
+                    headerLeft: () => (
+                        <FontAwesome
+                            name='address-card'
+                            style={styles.stackIcon}
+                            onPress={() => navigation.toggleDrawer()}
+                        />
+                    )
+                })}
             />
         </Stack.Navigator>
     );
@@ -93,51 +130,91 @@ const Main = () => {
                         : Constants.statusBarHeight
             }}
         >
-            <Drawer.Navigator
-                initialRouteName='HomeNav'
-                screenOptions={{
-                    drawerStyle: { backgroundColor: '#CEC8FF' },
-                    headerShown: true
-                }}
-            >
-                <Drawer.Screen
-                    name='HomeNav'
-                    component={HomeNavigator}
-                    options={{
-                        title: 'Home',
-                        headerShown: false
-                    }}
+<Drawer.Navigator
+    initialRouteName='HomeNav'
+    screenOptions={{
+        drawerStyle: { backgroundColor: '#CEC8FF' },
+        headerShown: true
+    }}
+>
+    <Drawer.Screen
+        name='HomeNav'
+        component={HomeNavigator}
+        options={{
+            title: 'Home',
+            headerShown: false,
+            drawerIcon: ({ color }) => (
+                <FontAwesome
+                    name='home'
+                    size={24}
+                    style={{ width: 24 }}
+                    color={color}
                 />
+            )
+        }}
+    />
 
-                <Drawer.Screen
-                    name='DirectoryNav'
-                    component={DirectoryNavigator}
-                    options={{
-                        title: 'Campsite Directory',
-                        headerShown: false
-                    }}
+    <Drawer.Screen
+        name='DirectoryNav'
+        component={DirectoryNavigator}
+        options={{
+            title: 'Campsite Directory',
+            headerShown: false,
+            drawerIcon: ({ color }) => (
+                <FontAwesome
+                    name='list'
+                    size={24}
+                    style={{ width: 24 }}
+                    color={color}
                 />
+            )
+        }}
+    />
 
-                <Drawer.Screen
-                    name='AboutNav'
-                    component={AboutNavigator}
-                    options={{
-                        title: 'About Us',
-                        headerShown: false
-                    }}
+    <Drawer.Screen
+        name='AboutNav'
+        component={AboutNavigator}
+        options={{
+            title: 'About Us',
+            headerShown: false,
+            drawerIcon: ({ color }) => (
+                <FontAwesome
+                    name='info-circle'
+                    size={24}
+                    style={{ width: 24 }}
+                    color={color}
                 />
+            )
+        }}
+    />
 
-                <Drawer.Screen
-                    name='ContactNav'
-                    component={ContactNavigator}
-                    options={{
-                        title: 'Contact Us',
-                        headerShown: false
-                    }}
+    <Drawer.Screen
+        name='ContactNav'
+        component={ContactNavigator}
+        options={{
+            title: 'Contact Us',
+            headerShown: false,
+            drawerIcon: ({ color }) => (
+                <FontAwesome
+                    name='address-card'
+                    size={24}
+                    style={{ width: 24 }}
+                    color={color}
                 />
-            </Drawer.Navigator>
+            )
+        }}
+    />
+</Drawer.Navigator>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    stackIcon: {
+        marginLeft: 10,
+        color: '#fff',
+        fontSize: 24
+    }
+});
 
 export default Main;

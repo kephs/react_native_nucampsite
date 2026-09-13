@@ -8,6 +8,7 @@ import {
 
 import { useSelector } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
+import Loading from '../components/LoadingComponent';
 
 const Mission = () => {
     return (
@@ -32,6 +33,42 @@ const Mission = () => {
 
 const AboutScreen = () => {
     const partners = useSelector((state) => state.partners);
+
+    if (partners.isLoading) {
+        return (
+            <ScrollView>
+                <Mission />
+
+                <View style={styles.card}>
+                    <Text style={styles.cardTitle}>
+                        Community Partners
+                    </Text>
+
+                    <View style={styles.divider} />
+
+                    <Loading />
+                </View>
+            </ScrollView>
+        );
+    }
+
+    if (partners.errMess) {
+        return (
+            <ScrollView>
+                <Mission />
+
+                <View style={styles.card}>
+                    <Text style={styles.cardTitle}>
+                        Community Partners
+                    </Text>
+
+                    <View style={styles.divider} />
+
+                    <Text>{partners.errMess}</Text>
+                </View>
+            </ScrollView>
+        );
+    }
 
     return (
         <ScrollView>

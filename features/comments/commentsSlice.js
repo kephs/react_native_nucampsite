@@ -1,41 +1,46 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { baseUrl } from '../../shared/baseUrl';
 
-export const fetchCampsites = createAsyncThunk(
-    'campsites/fetchCampsites',
+export const fetchComments = createAsyncThunk(
+    'comments/fetchComments',
     async () => {
-        const response = await fetch(baseUrl + 'campsites');
+        const response = await fetch(baseUrl + 'comments');
+
         if (!response.ok) {
-            return Promise.reject(
-                'Unable to fetch, status: ' + response.status
+            throw new Error(
+                `HTTP error! status: ${response.status}`
             );
         }
-        const data = await response.json();
-        return data;
+
+        return response.json();
     }
 );
 
-const campsitesSlice = createSlice({
-    name: 'campsites',
-    initialState: { isLoading: true, errMess: null, campsitesArray: [] },
+const initialState = {
+    commentsArray: [],
+    isLoading: true,
+    errMess: null
+};
+
+const commentsSlice = createSlice({
+    name: 'comments',
+    initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchCampsites.pending, (state) => {
+            .addCase(fetchComments.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(fetchCampsites.fulfilled, (state, action) => {
+            .addCase(fetchComments.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.errMess = null;
-                state.campsitesArray = action.payload;
+                state.commentsArray = action.payload;
             })
-            .addCase(fetchCampsites.rejected, (state, action) => {
+            .addCase(fetchComments.rejected, (state, action) => {
                 state.isLoading = false;
-                state.errMess = action.error
-                    ? action.error.message
-                    : 'Fetch failed';
+                state.errMess = action.error.message;
             });
     }
 });
 
-export const campsitesReducer = campsitesSlice.reducer;
+export const commentsReducer = commentsSlice.reducer;

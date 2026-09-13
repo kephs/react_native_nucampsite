@@ -1,6 +1,8 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { Card } from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
+
+import { baseUrl } from '../../shared/baseUrl';
 
 const RenderCampsite = (props) => {
     const { campsite } = props;
@@ -8,7 +10,11 @@ const RenderCampsite = (props) => {
     if (campsite) {
         return (
             <Card containerStyle={styles.cardContainer}>
-                <Card.Image source={campsite.image}>
+                <Card.Image
+                    source={{
+                        uri: baseUrl + campsite.image
+                    }}
+                >
                     <Text
                         style={{
                             color: '#fff',
@@ -24,20 +30,23 @@ const RenderCampsite = (props) => {
                     {campsite.description}
                 </Text>
 
-                <TouchableOpacity
-                    style={styles.favoriteButton}
+                <FontAwesome
+                    name={
+                        props.isFavorite
+                            ? 'heart'
+                            : 'heart-o'
+                    }
+                    size={30}
+                    color='#f50'
+                    style={styles.favoriteIcon}
                     onPress={() =>
                         props.isFavorite
-                            ? console.log('Already set as a favorite')
+                            ? console.log(
+                                  'Already set as a favorite'
+                              )
                             : props.markFavorite()
                     }
-                >
-                    <FontAwesome
-                        name={props.isFavorite ? 'heart' : 'heart-o'}
-                        size={24}
-                        color='#fff'
-                    />
-                </TouchableOpacity>
+                />
             </Card>
         );
     }
@@ -51,15 +60,8 @@ const styles = StyleSheet.create({
         margin: 0,
         marginBottom: 20
     },
-    favoriteButton: {
-        backgroundColor: '#f50',
-        width: 52,
-        height: 52,
-        borderRadius: 26,
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: 8,
-        elevation: 4
+    favoriteIcon: {
+        margin: 15
     }
 });
 

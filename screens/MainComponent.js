@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
     Image,
     Platform,
@@ -15,12 +16,18 @@ import {
 } from '@react-navigation/drawer';
 
 import { FontAwesome } from '@expo/vector-icons';
+import { useDispatch } from 'react-redux';
 
 import HomeScreen from './HomeScreen';
 import DirectoryScreen from './DirectoryScreen';
 import CampsiteInfoScreen from './CampsiteInfoScreen';
 import AboutScreen from './AboutScreen';
 import ContactScreen from './ContactScreen';
+
+import { fetchPartners } from '../features/partners/partnersSlice';
+import { fetchCampsites } from '../features/campsites/campsitesSlice';
+import { fetchPromotions } from '../features/promotions/promotionsSlice';
+import { fetchComments } from '../features/comments/commentsSlice';
 
 import logo from '../assets/images/logo.png';
 
@@ -158,6 +165,15 @@ const CustomDrawerContent = (props) => (
 );
 
 const Main = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchCampsites());
+        dispatch(fetchPromotions());
+        dispatch(fetchPartners());
+        dispatch(fetchComments());
+    }, [dispatch]);
+
     return (
         <View
             style={{

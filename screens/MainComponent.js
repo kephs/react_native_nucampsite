@@ -21,6 +21,7 @@ import { useDispatch } from 'react-redux';
 import HomeScreen from './HomeScreen';
 import DirectoryScreen from './DirectoryScreen';
 import CampsiteInfoScreen from './CampsiteInfoScreen';
+import ReservationScreen from './ReservationScreen';
 import AboutScreen from './AboutScreen';
 import ContactScreen from './ContactScreen';
 
@@ -89,6 +90,29 @@ const DirectoryNavigator = () => {
                 component={CampsiteInfoScreen}
                 options={({ route }) => ({
                     title: route.params.campsite.name
+                })}
+            />
+        </Stack.Navigator>
+    );
+};
+
+const ReservationNavigator = () => {
+    const Stack = createStackNavigator();
+
+    return (
+        <Stack.Navigator screenOptions={screenOptions}>
+            <Stack.Screen
+                name='Reservation'
+                component={ReservationScreen}
+                options={({ navigation }) => ({
+                    title: 'Reservation Search',
+                    headerLeft: () => (
+                        <FontAwesome
+                            name='tree'
+                            style={styles.stackIcon}
+                            onPress={() => navigation.toggleDrawer()}
+                        />
+                    )
                 })}
             />
         </Stack.Navigator>
@@ -222,6 +246,23 @@ const Main = () => {
                         drawerIcon: ({ color }) => (
                             <FontAwesome
                                 name='list'
+                                size={24}
+                                style={{ width: 24 }}
+                                color={color}
+                            />
+                        )
+                    }}
+                />
+
+                <Drawer.Screen
+                    name='ReserveCampsite'
+                    component={ReservationNavigator}
+                    options={{
+                        title: 'Reserve Campsite',
+                        headerShown: false,
+                        drawerIcon: ({ color }) => (
+                            <FontAwesome
+                                name='tree'
                                 size={24}
                                 style={{ width: 24 }}
                                 color={color}

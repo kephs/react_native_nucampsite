@@ -5,25 +5,33 @@ import {
     View
 } from 'react-native';
 
+import * as Animatable from 'react-native-animatable';
+
 const ContactScreen = () => {
     return (
         <ScrollView>
-            <View style={styles.card}>
-                <Text style={styles.cardTitle}>
-                    Contact Information
-                </Text>
+            <Animatable.View
+                animation='fadeInDown'
+                duration={2000}
+                delay={1000}
+            >
+                <View style={styles.card}>
+                    <Text style={styles.cardTitle}>
+                        Contact Information
+                    </Text>
 
-                <View style={styles.divider} />
+                    <View style={styles.divider} />
 
-                <Text>1 Nucamp Way</Text>
-                <Text>Seattle, WA 98001</Text>
-                <Text style={{ marginBottom: 10 }}>
-                    U.S.A.
-                </Text>
+                    <Text>1 Nucamp Way</Text>
+                    <Text>Seattle, WA 98001</Text>
+                    <Text style={{ marginBottom: 10 }}>
+                        U.S.A.
+                    </Text>
 
-                <Text>Phone: 1-206-555-1234</Text>
-                <Text>Email: campsites@nucamp.co</Text>
-            </View>
+                    <Text>Phone: 1-206-555-1234</Text>
+                    <Text>Email: campsites@nucamp.co</Text>
+                </View>
+            </Animatable.View>
         </ScrollView>
     );
 };

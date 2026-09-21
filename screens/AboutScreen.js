@@ -6,6 +6,7 @@ import {
     View
 } from 'react-native';
 
+import * as Animatable from 'react-native-animatable';
 import { useSelector } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import Loading from '../components/LoadingComponent';
@@ -55,6 +56,34 @@ const AboutScreen = () => {
     if (partners.errMess) {
         return (
             <ScrollView>
+                <Animatable.View
+                    animation='fadeInDown'
+                    duration={2000}
+                    delay={1000}
+                >
+                    <Mission />
+
+                    <View style={styles.card}>
+                        <Text style={styles.cardTitle}>
+                            Community Partners
+                        </Text>
+
+                        <View style={styles.divider} />
+
+                        <Text>{partners.errMess}</Text>
+                    </View>
+                </Animatable.View>
+            </ScrollView>
+        );
+    }
+
+    return (
+        <ScrollView>
+            <Animatable.View
+                animation='fadeInDown'
+                duration={2000}
+                delay={1000}
+            >
                 <Mission />
 
                 <View style={styles.card}>
@@ -64,47 +93,31 @@ const AboutScreen = () => {
 
                     <View style={styles.divider} />
 
-                    <Text>{partners.errMess}</Text>
-                </View>
-            </ScrollView>
-        );
-    }
+                    {partners.partnersArray.map((partner) => (
+                        <View
+                            key={partner.id}
+                            style={styles.partnerItem}
+                        >
+                            <Image
+                                source={{
+                                    uri: baseUrl + partner.image
+                                }}
+                                style={styles.partnerImage}
+                            />
 
-    return (
-        <ScrollView>
-            <Mission />
+                            <View style={styles.partnerContent}>
+                                <Text style={styles.partnerName}>
+                                    {partner.name}
+                                </Text>
 
-            <View style={styles.card}>
-                <Text style={styles.cardTitle}>
-                    Community Partners
-                </Text>
-
-                <View style={styles.divider} />
-
-                {partners.partnersArray.map((partner) => (
-                    <View
-                        key={partner.id}
-                        style={styles.partnerItem}
-                    >
-                        <Image
-                            source={{
-                                uri: baseUrl + partner.image
-                            }}
-                            style={styles.partnerImage}
-                        />
-
-                        <View style={styles.partnerContent}>
-                            <Text style={styles.partnerName}>
-                                {partner.name}
-                            </Text>
-
-                            <Text style={styles.partnerDescription}>
-                                {partner.description}
-                            </Text>
+                                <Text style={styles.partnerDescription}>
+                                    {partner.description}
+                                </Text>
+                            </View>
                         </View>
-                    </View>
-                ))}
-            </View>
+                    ))}
+                </View>
+            </Animatable.View>
         </ScrollView>
     );
 };

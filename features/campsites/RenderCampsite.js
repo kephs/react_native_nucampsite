@@ -1,46 +1,53 @@
 import { View, StyleSheet, Text } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
+import * as Animatable from 'react-native-animatable';
 
 const RenderCampsite = (props) => {
     const { campsite } = props;
 
     if (campsite) {
         return (
-            <Card containerStyle={{ padding: 0 }}>
-                <Card.Image source={campsite.image}>
-                    <Text style={styles.cardText}>
-                        {campsite.name}
-                    </Text>
-                </Card.Image>
+            <Animatable.View
+                animation='fadeInDownBig'
+                duration={2000}
+                delay={1000}
+            >
+                <Card containerStyle={{ padding: 0 }}>
+                    <Card.Image source={campsite.image}>
+                        <Text style={styles.cardText}>
+                            {campsite.name}
+                        </Text>
+                    </Card.Image>
 
-                <View style={styles.cardRow}>
-                    <Icon
-                        name={
-                            props.isFavorite
-                                ? 'heart'
-                                : 'heart-o'
-                        }
-                        type='font-awesome'
-                        color='#f50'
-                        raised
-                        reverse
-                        onPress={() =>
-                            props.markFavorite()
-                        }
-                    />
+                    <View style={styles.cardRow}>
+                        <Icon
+                            name={
+                                props.isFavorite
+                                    ? 'heart'
+                                    : 'heart-o'
+                            }
+                            type='font-awesome'
+                            color='#f50'
+                            raised
+                            reverse
+                            onPress={() =>
+                                props.markFavorite()
+                            }
+                        />
 
-                    <Icon
-                        name='pencil'
-                        type='font-awesome'
-                        color='#5637DD'
-                        raised
-                        reverse
-                        onPress={() =>
-                            props.onShowModal()
-                        }
-                    />
-                </View>
-            </Card>
+                        <Icon
+                            name='pencil'
+                            type='font-awesome'
+                            color='#5637DD'
+                            raised
+                            reverse
+                            onPress={() =>
+                                props.onShowModal()
+                            }
+                        />
+                    </View>
+                </Card>
+            </Animatable.View>
         );
     }
 

@@ -8,6 +8,7 @@ import {
     View
 } from 'react-native';
 
+import * as Animatable from 'react-native-animatable';
 import { Input, Rating } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -71,7 +72,12 @@ const CampsiteInfoScreen = ({ route }) => {
     };
 
     return (
-        <>
+        <Animatable.View
+            animation='fadeInUp'
+            duration={2000}
+            delay={1000}
+            style={{ flex: 1 }}
+        >
             <FlatList
                 data={comments.commentsArray.filter(
                     (comment) =>
@@ -179,7 +185,7 @@ const CampsiteInfoScreen = ({ route }) => {
                     </View>
                 </View>
             </Modal>
-        </>
+        </Animatable.View>
     );
 };
 

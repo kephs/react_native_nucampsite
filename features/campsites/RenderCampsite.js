@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import {
     View,
     StyleSheet,
@@ -11,10 +12,23 @@ import * as Animatable from 'react-native-animatable';
 const RenderCampsite = (props) => {
     const { campsite } = props;
 
+    const view = useRef();
+
     const isLeftSwipe = ({ dx }) => dx < -200;
 
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
+
+        onPanResponderGrant: () => {
+            view.current
+                .rubberBand(1000)
+                .then((endState) =>
+                    console.log(
+                        endState.finished ? 'finished' : 'canceled'
+                    )
+                );
+        },
+
         onPanResponderEnd: (e, gestureState) => {
             console.log(gestureState);
 
@@ -50,6 +64,7 @@ const RenderCampsite = (props) => {
     if (campsite) {
         return (
             <Animatable.View
+                ref={view}
                 animation='fadeInDownBig'
                 duration={2000}
                 delay={1000}

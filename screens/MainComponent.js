@@ -14,6 +14,7 @@ import {
     DrawerContentScrollView,
     DrawerItemList
 } from '@react-navigation/drawer';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/core';
 
 import { FontAwesome } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
@@ -55,7 +56,9 @@ const HomeNavigator = () => {
                         <FontAwesome
                             name='home'
                             style={styles.stackIcon}
-                            onPress={() => navigation.toggleDrawer()}
+                            onPress={() =>
+                                navigation.toggleDrawer()
+                            }
                         />
                     )
                 })}
@@ -81,7 +84,9 @@ const DirectoryNavigator = () => {
                         <FontAwesome
                             name='list'
                             style={styles.stackIcon}
-                            onPress={() => navigation.toggleDrawer()}
+                            onPress={() =>
+                                navigation.toggleDrawer()
+                            }
                         />
                     )
                 })}
@@ -112,7 +117,9 @@ const FavoritesNavigator = () => {
                         <FontAwesome
                             name='heart'
                             style={styles.stackIcon}
-                            onPress={() => navigation.toggleDrawer()}
+                            onPress={() =>
+                                navigation.toggleDrawer()
+                            }
                         />
                     )
                 })}
@@ -129,12 +136,22 @@ const LoginNavigator = () => {
             <Stack.Screen
                 name='Login'
                 component={LoginScreen}
-                options={({ navigation }) => ({
+                options={({ navigation, route }) => ({
+                    headerTitle:
+                        getFocusedRouteNameFromRoute(route),
                     headerLeft: () => (
                         <FontAwesome
-                            name='sign-in'
+                            name={
+                                getFocusedRouteNameFromRoute(
+                                    route
+                                ) === 'Register'
+                                    ? 'user-plus'
+                                    : 'sign-in'
+                            }
                             style={styles.stackIcon}
-                            onPress={() => navigation.toggleDrawer()}
+                            onPress={() =>
+                                navigation.toggleDrawer()
+                            }
                         />
                     )
                 })}
@@ -157,7 +174,9 @@ const ReservationNavigator = () => {
                         <FontAwesome
                             name='tree'
                             style={styles.stackIcon}
-                            onPress={() => navigation.toggleDrawer()}
+                            onPress={() =>
+                                navigation.toggleDrawer()
+                            }
                         />
                     )
                 })}
@@ -179,7 +198,9 @@ const AboutNavigator = () => {
                         <FontAwesome
                             name='info-circle'
                             style={styles.stackIcon}
-                            onPress={() => navigation.toggleDrawer()}
+                            onPress={() =>
+                                navigation.toggleDrawer()
+                            }
                         />
                     )
                 })}
@@ -202,7 +223,9 @@ const ContactNavigator = () => {
                         <FontAwesome
                             name='address-card'
                             style={styles.stackIcon}
-                            onPress={() => navigation.toggleDrawer()}
+                            onPress={() =>
+                                navigation.toggleDrawer()
+                            }
                         />
                     )
                 })}

@@ -57,7 +57,7 @@ const LoginTab = ({ navigation }) => {
     }, []);
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <Input
                 placeholder='Username'
                 leftIcon={{
@@ -187,7 +187,7 @@ const RegisterTab = () => {
     };
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.imageContainer}>
                 <Image
                     source={
@@ -276,7 +276,6 @@ const RegisterTab = () => {
                 <Button
                     onPress={() => handleRegister()}
                     title='Register'
-                    color='#5637DD'
                     icon={
                         <Icon
                             name='user-plus'
@@ -302,7 +301,9 @@ const LoginScreen = () => {
         inactiveBackgroundColor: '#CEC8FF',
         activeTintColor: '#fff',
         inactiveTintColor: '#808080',
-        labelStyle: { fontSize: 16 }
+        labelStyle: {
+            fontSize: 16
+        }
     };
 
     return (
